@@ -26,6 +26,7 @@ class Appointment(BaseModel):
     name: str
     date: str
     time: str
+    service: str
     yape_code: str
     confirmed: bool = False
 

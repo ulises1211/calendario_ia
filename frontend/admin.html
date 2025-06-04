@@ -25,7 +25,7 @@ async function load() {
         load();
       }
     };
-    li.textContent = `${it.id} - ${it.name} - ${it.date} ${it.time} - Confirmado: ${it.confirmed}`;
+    li.textContent = `${it.id} - ${it.name} - ${it.service} - ${it.date} ${it.time} - Confirmado: ${it.confirmed}`;
     li.appendChild(btn);
     list.appendChild(li);
   });
