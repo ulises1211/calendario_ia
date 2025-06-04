@@ -1,7 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
-import json
 import os
 import sqlite3
 from fastapi.middleware.cors import CORSMiddleware
@@ -16,8 +15,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-DATA_FILE = os.path.join(os.path.dirname(__file__), "appointments.json")
 
 DB_FILE = "users.db"
 
@@ -52,16 +49,48 @@ class Credentials(BaseModel):
     password: str
 
 def load_appointments() -> List[Appointment]:
-    if not os.path.exists(DATA_FILE):
-        return []
-    with open(DATA_FILE, "r") as f:
-        data = json.load(f)
-    return [Appointment(**item) for item in data]
+    conn = sqlite3.connect(DB_FILE)
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT id, name, date, time, service, yape_code, confirmed FROM appointments"
+    )
+    rows = cur.fetchall()
+    conn.close()
+    return [
+        Appointment(
+            id=r[0],
+            name=r[1],
+            date=r[2],
+            time=r[3],
+            service=r[4],
+            yape_code=r[5],
+            confirmed=bool(r[6]),
+        )
+        for r in rows
+    ]
 
 
-def save_appointments(appts: List[Appointment]):
-    with open(DATA_FILE, "w") as f:
-        json.dump([appt.dict() for appt in appts], f, indent=2)
+def save_appointment(appt: Appointment):
+    conn = sqlite3.connect(DB_FILE)
+    cur = conn.cursor()
+    try:
+        cur.execute(
+            "INSERT INTO appointments (id, name, date, time, service, yape_code, confirmed) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (
+                appt.id,
+                appt.name,
+                appt.date,
+                appt.time,
+                appt.service,
+                appt.yape_code,
+                int(appt.confirmed),
+            ),
+        )
+        conn.commit()
+    except sqlite3.IntegrityError:
+        conn.close()
+        raise HTTPException(status_code=400, detail="ID already exists")
+    conn.close()
 
 @app.get("/appointments", response_model=List[Appointment])
 def get_appointments():
@@ -69,31 +98,51 @@ def get_appointments():
 
 @app.post("/appointments", response_model=Appointment)
 def create_appointment(appt: Appointment):
-    appts = load_appointments()
-    if any(a.id == appt.id for a in appts):
-        raise HTTPException(status_code=400, detail="ID already exists")
-    appts.append(appt)
-    save_appointments(appts)
+    save_appointment(appt)
     return appt
 
 @app.post("/appointments/{appt_id}/validate", response_model=Appointment)
 def validate_payment(appt_id: int, yape_code: str):
-    appts = load_appointments()
-    for appt in appts:
-        if appt.id == appt_id:
-            if appt.yape_code == yape_code:
-                appt.confirmed = True
-                save_appointments(appts)
-                return appt
-            else:
-                raise HTTPException(status_code=400, detail="Yape code mismatch")
-    raise HTTPException(status_code=404, detail="Appointment not found")
+    conn = sqlite3.connect(DB_FILE)
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT yape_code, confirmed FROM appointments WHERE id = ?",
+        (appt_id,),
+    )
+    row = cur.fetchone()
+    if not row:
+        conn.close()
+        raise HTTPException(status_code=404, detail="Appointment not found")
+    if row[0] != yape_code:
+        conn.close()
+        raise HTTPException(status_code=400, detail="Yape code mismatch")
+    cur.execute(
+        "UPDATE appointments SET confirmed = 1 WHERE id = ?",
+        (appt_id,),
+    )
+    conn.commit()
+    cur.execute(
+        "SELECT id, name, date, time, service, yape_code, confirmed FROM appointments WHERE id = ?",
+        (appt_id,),
+    )
+    row = cur.fetchone()
+    conn.close()
+    return Appointment(
+        id=row[0],
+        name=row[1],
+        date=row[2],
+        time=row[3],
+        service=row[4],
+        yape_code=row[5],
+        confirmed=bool(row[6]),
+    )
 
 
 # --- User database helpers ---
 def init_db():
     conn = sqlite3.connect(DB_FILE)
     cur = conn.cursor()
+    # Table for users
     cur.execute(
         """CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -102,6 +151,18 @@ def init_db():
             name TEXT NOT NULL,
             email TEXT UNIQUE,
             whatsapp TEXT UNIQUE
+        )"""
+    )
+    # Table for appointments
+    cur.execute(
+        """CREATE TABLE IF NOT EXISTS appointments (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            date TEXT NOT NULL,
+            time TEXT NOT NULL,
+            service TEXT NOT NULL,
+            yape_code TEXT NOT NULL,
+            confirmed INTEGER NOT NULL DEFAULT 0
         )"""
     )
     conn.commit()
