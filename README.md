@@ -9,7 +9,11 @@ Este proyecto contiene un backend sencillo en FastAPI y un frontend estático pa
 
 ## Uso
 
-1. Instalar dependencias (ya incluidas en la imagen de Codex).
+1. Instalar dependencias desde el archivo `requirements.txt`:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
 2. Ejecutar el servidor desde la carpeta `backend`:
 
 ```bash
