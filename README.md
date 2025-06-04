@@ -5,7 +5,7 @@ Este proyecto contiene un backend sencillo en FastAPI y un frontend estático pa
 ## Estructura
 
 - `backend/`: código del servidor FastAPI y pruebas.
-- `frontend/`: páginas HTML para el cliente y el administrador.
+- `frontend/`: páginas HTML para el cliente, el administrador y el registro de usuarios.
 
 ## Uso
 
@@ -17,6 +17,11 @@ uvicorn main:app --reload --port 8000
 ```
 
 3. Abrir `frontend/index.html` en un navegador para reservar citas y `frontend/admin.html` para validarlas.
+4. Para registrar nuevos usuarios se puede utilizar `frontend/register.html` (con el backend ejecutándose en `localhost:8000`), que ofrece una interfaz moderna basada en Bootstrap.
+
+### Registro de usuarios
+
+El backend permite registrar usuarios enviando un `POST` a `/users` con un nombre y al menos un correo electrónico o número de WhatsApp. La información se almacena en el archivo `users.db` usando SQLite, por lo que no se necesita ninguna base de datos externa.
 
 ## Pruebas
 
