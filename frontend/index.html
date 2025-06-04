@@ -20,7 +20,7 @@
 
 <script>
 async function load() {
-  const res = await fetch('/appointments');
+  const res = await fetch('http://localhost:8000/appointments');
   const items = await res.json();
   const list = document.getElementById('list');
   list.innerHTML = '';
@@ -47,7 +47,7 @@ document.getElementById('bookForm').addEventListener('submit', async e => {
     time: timeValue,
     yape_code: document.getElementById('yape').value
   };
-  await fetch('/appointments', {
+  await fetch('http://localhost:8000/appointments', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(appt)
