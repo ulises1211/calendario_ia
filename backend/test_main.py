@@ -23,10 +23,13 @@ def test_create_validate():
     assert appts[0].confirmed is True
 
 
-def test_user_registration():
-    user_in = main.UserCreate(name="Alice", whatsapp="12345")
+def test_user_registration_and_login():
+    user_in = main.UserCreate(username="alice", password="secret", name="Alice", whatsapp="12345")
     user = main.register_user(user_in)
     assert user.id == 1
     users = main.get_users()
     assert len(users) == 1
-    assert users[0].whatsapp == "12345"
+    assert users[0].username == "alice"
+    creds = main.Credentials(username="alice", password="secret")
+    logged = main.login(creds)
+    assert logged.id == 1

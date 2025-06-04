@@ -33,14 +33,23 @@ class Appointment(BaseModel):
 
 class User(BaseModel):
     id: int
+    username: str
+    password: str
     name: str
     email: Optional[str] = None
     whatsapp: Optional[str] = None
 
 class UserCreate(BaseModel):
+    username: str
+    password: str
     name: str
     email: Optional[str] = None
     whatsapp: Optional[str] = None
+
+
+class Credentials(BaseModel):
+    username: str
+    password: str
 
 def load_appointments() -> List[Appointment]:
     if not os.path.exists(DATA_FILE):
@@ -88,6 +97,8 @@ def init_db():
     cur.execute(
         """CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL,
             name TEXT NOT NULL,
             email TEXT UNIQUE,
             whatsapp TEXT UNIQUE
@@ -97,15 +108,15 @@ def init_db():
     conn.close()
 
 
-def create_user(name: str, email: Optional[str] = None, whatsapp: Optional[str] = None) -> User:
+def create_user(username: str, password: str, name: str, email: Optional[str] = None, whatsapp: Optional[str] = None) -> User:
     if not email and not whatsapp:
         raise HTTPException(status_code=400, detail="email or whatsapp required")
     conn = sqlite3.connect(DB_FILE)
     cur = conn.cursor()
     try:
         cur.execute(
-            "INSERT INTO users (name, email, whatsapp) VALUES (?, ?, ?)",
-            (name, email, whatsapp),
+            "INSERT INTO users (username, password, name, email, whatsapp) VALUES (?, ?, ?, ?, ?)",
+            (username, password, name, email, whatsapp),
         )
         conn.commit()
         user_id = cur.lastrowid
@@ -113,21 +124,35 @@ def create_user(name: str, email: Optional[str] = None, whatsapp: Optional[str] 
         conn.close()
         raise HTTPException(status_code=400, detail="user already exists")
     cur.execute(
-        "SELECT id, name, email, whatsapp FROM users WHERE id = ?",
+        "SELECT id, username, password, name, email, whatsapp FROM users WHERE id = ?",
         (user_id,),
     )
     row = cur.fetchone()
     conn.close()
-    return User(id=row[0], name=row[1], email=row[2], whatsapp=row[3])
+    return User(id=row[0], username=row[1], password=row[2], name=row[3], email=row[4], whatsapp=row[5])
 
 
 def get_users() -> List[User]:
     conn = sqlite3.connect(DB_FILE)
     cur = conn.cursor()
-    cur.execute("SELECT id, name, email, whatsapp FROM users")
+    cur.execute("SELECT id, username, password, name, email, whatsapp FROM users")
     rows = cur.fetchall()
     conn.close()
-    return [User(id=r[0], name=r[1], email=r[2], whatsapp=r[3]) for r in rows]
+    return [User(id=r[0], username=r[1], password=r[2], name=r[3], email=r[4], whatsapp=r[5]) for r in rows]
+
+
+def authenticate_user(username: str, password: str) -> User:
+    conn = sqlite3.connect(DB_FILE)
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT id, username, password, name, email, whatsapp FROM users WHERE username = ? AND password = ?",
+        (username, password),
+    )
+    row = cur.fetchone()
+    conn.close()
+    if not row:
+        raise HTTPException(status_code=401, detail="invalid credentials")
+    return User(id=row[0], username=row[1], password=row[2], name=row[3], email=row[4], whatsapp=row[5])
 
 
 @app.on_event("startup")
@@ -137,7 +162,12 @@ def startup_event():
 
 @app.post("/users", response_model=User)
 def register_user(user: UserCreate):
-    return create_user(user.name, user.email, user.whatsapp)
+    return create_user(user.username, user.password, user.name, user.email, user.whatsapp)
+
+
+@app.post("/login", response_model=User)
+def login(creds: Credentials):
+    return authenticate_user(creds.username, creds.password)
 
 
 @app.get("/users", response_model=List[User])
