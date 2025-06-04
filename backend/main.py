@@ -6,7 +6,7 @@ import os
 
 app = FastAPI()
 
-DATA_FILE = "appointments.json"
+DATA_FILE = os.path.join(os.path.dirname(__file__), "appointments.json")
 
 class Appointment(BaseModel):
     id: int
