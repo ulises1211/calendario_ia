@@ -30,7 +30,7 @@ Asegúrate de que el backend esté disponible en `http://localhost:8000`, ya que
 
 ### Registro de usuarios
 
-El backend permite registrar usuarios enviando un `POST` a `/users` con un nombre y al menos un correo electrónico o número de WhatsApp. La información se almacena en el archivo `users.db` usando SQLite, por lo que no se necesita ninguna base de datos externa.
+El backend permite registrar usuarios enviando un `POST` a `/users` con un nombre y al menos un correo electrónico o número de WhatsApp. Toda la información, tanto de usuarios como de citas, se almacena en el archivo `users.db` usando SQLite, por lo que no se necesita ninguna base de datos externa.
 
 ## Pruebas
 

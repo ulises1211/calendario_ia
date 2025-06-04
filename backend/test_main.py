@@ -1,17 +1,14 @@
 import os
-import json
 import main
 
 # ensure we start with a clean slate
-if os.path.exists(main.DATA_FILE):
-    os.remove(main.DATA_FILE)
 if os.path.exists(main.DB_FILE):
     os.remove(main.DB_FILE)
 main.init_db()
 
 def test_create_validate():
     appt = main.Appointment(id=1, name="Test", date="2025-06-01", time="10:00", service="consulta", yape_code="abc")
-    main.save_appointments([appt])
+    main.save_appointment(appt)
     loaded = main.load_appointments()
     assert len(loaded) == 1
     assert loaded[0].name == "Test"
