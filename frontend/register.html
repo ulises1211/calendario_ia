@@ -12,7 +12,7 @@
   <form id="userForm" class="card p-4 shadow-sm">
     <div class="mb-3">
       <label for="email" class="form-label">Correo electrónico</label>
-      <input type="email" class="form-control" id="email">
+      <input type="email" class="form-control" id="email" required>
     </div>
 
     <div class="mb-3">
@@ -22,7 +22,7 @@
     
     <div class="mb-3">
       <label for="whatsapp" class="form-label">WhatsApp</label>
-      <input type="text" class="form-control" id="whatsapp">
+      <input type="text" class="form-control" id="whatsapp" required>
     </div>
     <button type="submit" class="btn btn-primary">Registrar</button>
   </form>
@@ -31,16 +31,16 @@
 <script>
 document.getElementById('userForm').addEventListener('submit', async e => {
   e.preventDefault();
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value || null;
-  const whatsapp = document.getElementById('whatsapp').value || null;
-  if (!email && !whatsapp) {
-    document.getElementById('msg').textContent = 'Debe ingresar correo o Whatsapp.';
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const whatsapp = document.getElementById('whatsapp').value.trim();
+  if (!email || !password || !whatsapp) {
+    document.getElementById('msg').textContent = 'Todos los campos son obligatorios';
     document.getElementById('msg').className = 'text-danger';
     return;
   }
+  const username = email; // se usa el correo como nombre de usuario
+  const name = email;
   const res = await fetch('http://localhost:8000/users', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
