@@ -11,8 +11,8 @@
   <h1 class="mb-4">Iniciar Sesión</h1>
   <form id="loginForm" class="card p-4 shadow-sm">
     <div class="mb-3">
-      <label for="username" class="form-label">Correo</label>
-      <input type="text" id="email" class="form-control" required>
+      <label for="email" class="form-label">Correo</label>
+      <input type="email" id="email" class="form-control" required>
     </div>
     <div class="mb-3">
       <label for="password" class="form-label">Contraseña</label>
@@ -30,14 +30,16 @@ document.getElementById('goRegister').addEventListener('click', () => {
 
 document.getElementById('loginForm').addEventListener('submit', async e => {
   e.preventDefault();
-  const username = document.getElementById('username').value.trim();
+  const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value.trim();
-  if(!username || !password) return;
+  if(!email || !password) return;
+
   const res = await fetch('http://localhost:8000/login', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({username, password})
+    body: JSON.stringify({ username: email, password })
   });
+
   if(res.ok){
     const user = await res.json();
     localStorage.setItem('userName', user.name);
@@ -47,7 +49,17 @@ document.getElementById('loginForm').addEventListener('submit', async e => {
       window.location.href = 'index.html';
     }
   }else{
-    alert('usuario incorrecto o no existe');
+    try {
+      const users = await fetch('http://localhost:8000/users').then(r => r.json());
+      const found = users.some(u => u.email === email);
+      if(!found){
+        alert('Su correo no existe');
+      } else {
+        alert('Contrase\u00f1a incorrecta');
+      }
+    } catch(err){
+      alert('Error al iniciar sesi\u00f3n');
+    }
   }
 });
 </script>
