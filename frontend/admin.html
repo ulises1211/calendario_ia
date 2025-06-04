@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin - Validar Pago</title>
+</head>
+<body>
+  <h1>Validar Pago Yape</h1>
+  <ul id="list"></ul>
+
+<script>
+async function load() {
+  const res = await fetch('/appointments');
+  const items = await res.json();
+  const list = document.getElementById('list');
+  list.innerHTML = '';
+  items.forEach(it => {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.textContent = 'Validar';
+    btn.onclick = async () => {
+      const code = prompt('Ingrese codigo Yape para validar:');
+      if (code) {
+        await fetch(`/appointments/${it.id}/validate?yape_code=${code}`, {method:'POST'});
+        load();
+      }
+    };
+    li.textContent = `${it.id} - ${it.name} - ${it.date} ${it.time} - Confirmado: ${it.confirmed}`;
+    li.appendChild(btn);
+    list.appendChild(li);
+  });
+}
+load();
+</script>
+</body>
+</html>

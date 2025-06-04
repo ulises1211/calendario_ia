@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Salon Booking</title>
+</head>
+<body>
+  <h1>Agendar Cita</h1>
+  <form id="bookForm">
+    <label>Id: <input type="number" id="id" required /></label><br />
+    <label>Nombre: <input type="text" id="name" required /></label><br />
+    <label>Fecha (YYYY-MM-DD): <input type="date" id="date" required /></label><br />
+    <label>Hora: <input type="time" id="time" required /></label><br />
+    <label>Código Yape: <input type="text" id="yape" required /></label><br />
+    <button type="submit">Reservar</button>
+  </form>
+
+  <h2>Citas</h2>
+  <ul id="list"></ul>
+
+<script>
+async function load() {
+  const res = await fetch('/appointments');
+  const items = await res.json();
+  const list = document.getElementById('list');
+  list.innerHTML = '';
+  items.forEach(it => {
+    const li = document.createElement('li');
+    li.textContent = `${it.id} - ${it.name} - ${it.date} ${it.time} - Confirmado: ${it.confirmed}`;
+    list.appendChild(li);
+  });
+}
+
+load();
+
+document.getElementById('bookForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const appt = {
+    id: parseInt(document.getElementById('id').value),
+    name: document.getElementById('name').value,
+    date: document.getElementById('date').value,
+    time: document.getElementById('time').value,
+    yape_code: document.getElementById('yape').value
+  };
+  await fetch('/appointments', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(appt)
+  });
+  load();
+});
+</script>
+</body>
+</html>
