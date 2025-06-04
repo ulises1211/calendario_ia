@@ -10,7 +10,7 @@ if os.path.exists(main.DB_FILE):
 main.init_db()
 
 def test_create_validate():
-    appt = main.Appointment(id=1, name="Test", date="2025-06-01", time="10:00", yape_code="abc")
+    appt = main.Appointment(id=1, name="Test", date="2025-06-01", time="10:00", service="consulta", yape_code="abc")
     main.save_appointments([appt])
     loaded = main.load_appointments()
     assert len(loaded) == 1
