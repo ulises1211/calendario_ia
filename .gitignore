@@ -1,3 +1,5 @@
 __pycache__/
 *.pyc
 backend/appointments.json
+appointments.json
+.pytest_cache/
