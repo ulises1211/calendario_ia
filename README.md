@@ -5,7 +5,7 @@ Este proyecto contiene un backend sencillo en FastAPI y un frontend estático pa
 ## Estructura
 
 - `backend/`: código del servidor FastAPI y pruebas.
-- `frontend/`: páginas HTML para el cliente, el administrador y el registro de usuarios.
+- `frontend/`: páginas HTML para el cliente, la página de inicio, el administrador y el registro de usuarios.
 
 ## Uso
 
@@ -24,8 +24,9 @@ python -m uvicorn main:app --reload --port 8000
 Asegúrate de que el backend esté disponible en `http://localhost:8000`, ya que
  todas las páginas del frontend realizan sus solicitudes a esa dirección.
 
-3. Abrir `frontend/index.html` en un navegador para reservar citas y `frontend/admin.html` para validarlas.
-4. Para registrar nuevos usuarios se puede utilizar `frontend/register.html`, que ofrece una interfaz moderna basada en Bootstrap.
+3. Visitar `frontend/home.html` como página principal. Desde allí se puede acceder al inicio de sesión para reservar citas.
+4. El formulario de `frontend/login.html` permite ingresar con un nombre de usuario. Si el nombre es `admin` se accede a `admin.html`; de lo contrario, el usuario será llevado al calendario (`index.html`).
+5. Si un usuario no existe se redirige automáticamente a `frontend/register.html` para registrarse.
 
 ### Registro de usuarios
 
