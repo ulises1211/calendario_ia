@@ -4,8 +4,18 @@ from typing import List, Optional
 import json
 import os
 import sqlite3
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# Habilita CORS para cualquier origen (solo para desarrollo)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # o ["http://localhost:8000"] si quieres limitarlo
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 DATA_FILE = os.path.join(os.path.dirname(__file__), "appointments.json")
 
@@ -132,3 +142,7 @@ def register_user(user: UserCreate):
 @app.get("/users", response_model=List[User])
 def list_users():
     return get_users()
+
+@app.get("/")
+def root():
+    return {"message": "Bienvenido al backend de Salón Booking con Yape"}

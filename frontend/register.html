@@ -37,7 +37,7 @@ document.getElementById('userForm').addEventListener('submit', async e => {
     document.getElementById('msg').className = 'text-danger';
     return;
   }
-  const res = await fetch('/users', {
+  const res = await fetch('http://localhost:8000/users', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ name, email, whatsapp })

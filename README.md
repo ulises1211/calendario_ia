@@ -18,6 +18,7 @@ Este proyecto contiene un backend sencillo en FastAPI y un frontend estático pa
 
 ```bash
 uvicorn main:app --reload --port 8000
+python -m uvicorn main:app --reload --port 8000
 ```
 
 Asegúrate de que el backend esté disponible en `http://localhost:8000`, ya que
