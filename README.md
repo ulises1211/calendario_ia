@@ -24,8 +24,8 @@ python -m uvicorn main:app --reload --port 8000
 Asegúrate de que el backend esté disponible en `http://localhost:8000`, ya que
  todas las páginas del frontend realizan sus solicitudes a esa dirección.
 
-3. Abrir `frontend/index.html` en un navegador para reservar citas y `frontend/admin.html` para validarlas.
-4. Para registrar nuevos usuarios se puede utilizar `frontend/register.html`, que ofrece una interfaz moderna basada en Bootstrap.
+3. Abrir `frontend/home.html` en un navegador para reservar citas y `frontend/admin.html` para validarlas.
+4. Para registrarse se puede usar `frontend/register.html`. Los usuarios existentes pueden ingresar desde `frontend/login.html`.
 
 ### Registro de usuarios
 
