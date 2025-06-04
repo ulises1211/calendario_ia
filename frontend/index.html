@@ -35,11 +35,16 @@ load();
 
 document.getElementById('bookForm').addEventListener('submit', async e => {
   e.preventDefault();
+  const timeValue = document.getElementById('time').value;
+  if (!timeValue) {
+    alert('Seleccione una hora');
+    return;
+  }
   const appt = {
     id: parseInt(document.getElementById('id').value),
     name: document.getElementById('name').value,
     date: document.getElementById('date').value,
-    time: document.getElementById('time').value,
+    time: timeValue,
     yape_code: document.getElementById('yape').value
   };
   await fetch('/appointments', {
