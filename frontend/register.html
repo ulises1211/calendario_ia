@@ -43,9 +43,12 @@ document.getElementById('userForm').addEventListener('submit', async e => {
     body: JSON.stringify({ name, email, whatsapp })
   });
   if (res.ok) {
-    document.getElementById('msg').textContent = 'Usuario registrado correctamente.';
+    document.getElementById('msg').textContent = 'Usuario registrado correctamente. Redirigiendo para agendar cita...';
     document.getElementById('msg').className = 'text-success';
     document.getElementById('userForm').reset();
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 1500);
   } else {
     const data = await res.json();
     document.getElementById('msg').textContent = data.detail || 'Error al registrar';
