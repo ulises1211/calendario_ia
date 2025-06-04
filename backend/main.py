@@ -26,6 +26,11 @@ class User(BaseModel):
     email: Optional[str] = None
     whatsapp: Optional[str] = None
 
+class UserCreate(BaseModel):
+    name: str
+    email: Optional[str] = None
+    whatsapp: Optional[str] = None
+
 def load_appointments() -> List[Appointment]:
     if not os.path.exists(DATA_FILE):
         return []
@@ -120,7 +125,7 @@ def startup_event():
 
 
 @app.post("/users", response_model=User)
-def register_user(user: User):
+def register_user(user: UserCreate):
     return create_user(user.name, user.email, user.whatsapp)
 
 

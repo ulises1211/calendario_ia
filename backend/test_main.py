@@ -24,7 +24,9 @@ def test_create_validate():
 
 
 def test_user_registration():
-    user = main.create_user(name="Alice", whatsapp="12345")
+    user_in = main.UserCreate(name="Alice", whatsapp="12345")
+    user = main.register_user(user_in)
+    assert user.id == 1
     users = main.get_users()
     assert len(users) == 1
     assert users[0].whatsapp == "12345"
