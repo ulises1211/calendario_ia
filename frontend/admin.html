@@ -10,7 +10,7 @@
 
 <script>
 async function load() {
-  const res = await fetch('/appointments');
+  const res = await fetch('http://localhost:8000/appointments');
   const items = await res.json();
   const list = document.getElementById('list');
   list.innerHTML = '';
@@ -21,7 +21,7 @@ async function load() {
     btn.onclick = async () => {
       const code = prompt('Ingrese codigo Yape para validar:');
       if (code) {
-        await fetch(`/appointments/${it.id}/validate?yape_code=${code}`, {method:'POST'});
+        await fetch(`http://localhost:8000/appointments/${it.id}/validate?yape_code=${code}`, {method:'POST'});
         load();
       }
     };

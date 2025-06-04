@@ -16,6 +16,9 @@ Este proyecto contiene un backend sencillo en FastAPI y un frontend estático pa
 uvicorn main:app --reload --port 8000
 ```
 
+Asegúrate de que el backend esté disponible en `http://localhost:8000`, ya que
+ todas las páginas del frontend realizan sus solicitudes a esa dirección.
+
 3. Abrir `frontend/index.html` en un navegador para reservar citas y `frontend/admin.html` para validarlas.
 4. Para registrar nuevos usuarios se puede utilizar `frontend/register.html`, que ofrece una interfaz moderna basada en Bootstrap.
 
