@@ -3,30 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <title>Admin - Validar Pago</title>
+  <link rel="stylesheet" href="futuristic-theme.css">
 </head>
-<body>
-  <h1>Validar Pago Yape</h1>
-  <button id="refresh">Actualizar</button>
-  <ul id="list"></ul>
+<body class="admin-page"> <!-- Added admin-page class -->
+  <div class="admin-container"> <!-- Added container div -->
+    <h1>Validar Pago Yape</h1>
+    <button id="refresh" class="btn btn-primary">Actualizar</button> <!-- Added btn classes -->
+    <ul id="list"></ul>
+  </div>
 
 <script>
 async function load() {
   const res = await fetch('http://localhost:8000/appointments');
   const items = await res.json();
   const list = document.getElementById('list');
-  list.innerHTML = '';
+  list.innerHTML = ''; // Clear previous items
   items.forEach(it => {
     const li = document.createElement('li');
     const btn = document.createElement('button');
     btn.textContent = 'Validar';
+    btn.className = 'btn btn-secondary btn-sm'; // Added btn classes for styling
     btn.onclick = async () => {
       const code = prompt('Ingrese codigo Yape para validar:');
       if (code) {
+        // Consider using a styled modal for prompt in future
         await fetch(`http://localhost:8000/appointments/${it.id}/validate?yape_code=${code}`, {method:'POST'});
         load();
       }
     };
-    li.textContent = `${it.id} - ${it.name} - ${it.service} - ${it.date} ${it.time} - Confirmado: ${it.confirmed}`;
+    li.textContent = `${it.id} - ${it.name} - ${it.service} - ${it.date} ${it.time} - Confirmado: ${it.confirmed ? 'Sí' : 'No'}`;
     li.appendChild(btn);
     list.appendChild(li);
   });
