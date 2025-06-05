@@ -1,0 +1,467 @@
+/* Import Google Font - Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/* Global Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #0A192F; /* Deep space blue */
+  color: #E6F1FF; /* Off-white */
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700; /* Bolder headings */
+  color: #E6F1FF; /* Off-white for headings too, or a very light accent */
+  margin-bottom: 0.75em;
+}
+
+/* General link styling */
+a {
+  color: #00FFFF; /* Electric blue for links */
+  text-decoration: none; /* Remove default underline */
+}
+
+a:hover {
+  color: #39FF14; /* Neon green for hover - can adjust */
+  text-decoration: underline;
+}
+
+/* Ensure container backgrounds in Bootstrap don't override the body bg too much,
+   or make them slightly lighter if needed for contrast.
+   For now, let's assume we want the dark theme pervasive.
+   We might need to adjust specific container elements later. */
+
+.bg-light {
+  background-color: #1A1A2E !important; /* Dark charcoal for elements previously light, override Bootstrap */
+  color: #E6F1FF;
+}
+
+.text-dark {
+  color: #E6F1FF !important; /* Ensure text that was dark is now light */
+}
+
+.text-white {
+  color: #FFFFFF !important; /* Keep white text as white */
+}
+
+/* Style for cards to give them a distinct but themed background */
+.card {
+  background-color: #1A1A2E; /* Dark charcoal, same as .bg-light for now */
+  border: 1px solid #00FFFF; /* Accent border */
+  color: #E6F1FF;
+}
+
+/* Adjust text muted or lead paragraph colors */
+.text-muted {
+  color: #BFC1C2 !important; /* Metallic silver for muted text */
+}
+
+.lead {
+  color: #E6F1FF;
+  font-weight: 300;
+}
+
+/* Navbar specific adjustments for dark theme */
+.navbar {
+  background-color: #1A1A2E !important; /* Dark charcoal for navbar */
+  border-bottom: 1px solid #00FFFF; /* Accent line at the bottom */
+}
+
+.navbar-brand, .nav-link, .navbar-toggler-icon {
+  color: #E6F1FF !important;
+}
+
+.navbar-toggler {
+  border-color: #00FFFF;
+}
+
+.navbar-nav .nav-link.active, .navbar-nav .show > .nav-link {
+  color: #00FFFF !important; /* Active link color */
+}
+
+/* Modal specific adjustments for dark theme */
+.modal-content {
+  background-color: #0A192F; /* Deep space blue for modal background */
+  color: #E6F1FF;
+  border: 1px solid #00FFFF; /* Accent border */
+}
+
+.modal-header {
+  border-bottom: 1px solid #2c3e50; /* Darker border for modal header */
+}
+
+.modal-header .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%); /* Make close button visible on dark bg */
+}
+
+/* Table styling for admin page (anticipating it might be used or needed) */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+th, td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #00FFFF; /* Accent color for table lines */
+  color: #E6F1FF;
+}
+
+thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #00FFFF; /* Stronger line for table header */
+  color: #00FFFF; /* Accent color for table headers */
+}
+
+/* Restyle Bootstrap Components */
+
+/* Buttons */
+.btn {
+  border-radius: 4px; /* Slightly less rounded for a sharper look */
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background-color: #00FFFF; /* Electric blue accent */
+  color: #0A192F; /* Dark text for contrast */
+  border-color: #00FFFF;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background-color: #39FF14; /* Neon green on hover/focus */
+  color: #0A192F;
+  border-color: #39FF14;
+  box-shadow: 0 0 10px #39FF14; /* Neon glow effect */
+}
+
+.btn-link {
+  color: #00FFFF;
+}
+
+.btn-link:hover {
+  color: #39FF14;
+}
+
+/* Secondary or default button style (if needed) */
+.btn-secondary {
+  background-color: #1A1A2E; /* Dark charcoal */
+  color: #E6F1FF; /* Off-white text */
+  border-color: #00FFFF; /* Accent border */
+}
+
+.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
+  background-color: #2c3e50; /* Slightly lighter dark */
+  color: #00FFFF;
+  border-color: #00FFFF;
+  box-shadow: 0 0 8px #00FFFF;
+}
+
+
+/* Form Inputs */
+.form-control, .form-select {
+  background-color: #071425; /* Slightly darker than main bg */
+  color: #E6F1FF;
+  border: 1px solid #00FFFF; /* Accent border */
+  border-radius: 4px;
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: #071425;
+  color: #E6F1FF;
+  border-color: #39FF14; /* Neon green border on focus */
+  box-shadow: 0 0 8px #39FF14; /* Neon glow effect */
+  outline: none; /* Remove default outline */
+}
+
+.form-control::placeholder {
+  color: #BFC1C2; /* Metallic silver for placeholder */
+  opacity: 0.7;
+}
+
+.form-label {
+  color: #E6F1FF;
+  margin-bottom: 0.5rem;
+}
+
+/* Specific for select dropdown arrow on dark background */
+.form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2300FFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+/* List group styling (e.g., for admin page list) */
+.list-group-item {
+  background-color: #1A1A2E; /* Dark charcoal */
+  border: 1px solid #00FFFF; /* Accent border */
+  color: #E6F1FF;
+  margin-bottom: 5px; /* Add some space between items */
+  border-radius: 4px;
+}
+
+/* Style for items within the list, like the text content */
+#list li { /* Specifically for the admin page list */
+  background-color: #1A1A2E;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  border: 1px solid #00FFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#list li button { /* Style buttons within the list items */
+  margin-left: 10px;
+}
+
+/* Ensure Bootstrap's shadow utility looks good on dark */
+.shadow-sm {
+  box-shadow: 0 .125rem .25rem rgba(0, 255, 255, 0.2) !important; /* Subtle neon shadow */
+}
+.shadow {
+  box-shadow: 0 .5rem 1rem rgba(0, 255, 255, 0.25) !important;
+}
+.shadow-lg {
+  box-shadow: 0 1rem 3rem rgba(0, 255, 255, 0.3) !important;
+}
+
+/* FullCalendar Customization */
+
+/* General Calendar Container */
+#calendar {
+  background-color: #0A192F; /* Main dark background */
+  border-radius: 4px;
+  padding: 10px; /* Add some padding around the calendar */
+}
+
+/* Calendar Table Borders */
+.fc-theme-standard td, .fc-theme-standard th,
+.fc-scrollgrid { /* Border color for grid lines */
+  border-color: #2c3e50; /* A darker, less prominent border for internal lines */
+}
+
+/* Calendar Header Toolbar */
+.fc .fc-toolbar {
+  background-color: #1A1A2E; /* Dark charcoal for toolbar */
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #00FFFF; /* Accent border */
+}
+
+.fc .fc-toolbar-title {
+  color: #E6F1FF; /* Light text color for title */
+  font-size: 1.5em;
+}
+
+.fc .fc-button { /* Basic styling for FC buttons */
+  background-color: #00FFFF;
+  color: #0A192F;
+  border: 1px solid #00FFFF;
+  text-transform: capitalize;
+  box-shadow: none;
+  transition: all 0.3s ease;
+}
+
+.fc .fc-button:hover {
+  background-color: #39FF14;
+  color: #0A192F;
+  border-color: #39FF14;
+}
+
+.fc .fc-button-primary:disabled {
+  background-color: #555;
+  border-color: #555;
+  color: #aaa;
+}
+
+.fc .fc-button-active { /* Style for active buttons like 'today' or view switch */
+  background-color: #39FF14;
+  color: #0A192F;
+  border-color: #39FF14;
+}
+
+/* Day Headers (e.g., Mon, Tue) */
+.fc .fc-col-header-cell-cushion { /* Link/text within day header */
+  color: #00FFFF; /* Accent color for day names */
+  text-decoration: none;
+}
+
+/* Event Styling */
+.fc-event {
+  border: 1px solid #39FF14; /* Neon green border for events */
+  background-color: #1A1A2E; /* Dark charcoal for event background */
+  color: #E6F1FF; /* Light text for event titles */
+  font-weight: 500;
+  border-radius: 3px;
+}
+
+.fc-event:hover {
+  background-color: #2c3e50; /* Slightly lighter on hover */
+}
+
+.fc-event .fc-event-main {
+  color: #E6F1FF;
+}
+
+.fc-event .fc-event-time {
+  color: #BFC1C2; /* Metallic silver for event time */
+}
+
+/* Timegrid Styling */
+.fc .fc-timegrid-slot-label { /* Time labels on the side (e.g., 9am, 10am) */
+  color: #BFC1C2;
+  border-color: #2c3e50;
+}
+
+.fc .fc-timegrid-slot-lane { /* Background of time slots */
+  background-color: #0A192F; /* Main dark background */
+}
+.fc .fc-timegrid-slot-lane:hover {
+    background-color: #0f203a; /* Slightly lighter on hover */
+}
+
+
+/* DayGrid (Month View) */
+.fc .fc-daygrid-day-number {
+  color: #BFC1C2; /* Day numbers color */
+  text-decoration: none;
+}
+
+.fc .fc-daygrid-day.fc-day-today { /* Highlight for today */
+  background-color: rgba(0, 255, 255, 0.1); /* Transparent accent */
+}
+
+.fc .fc-popover { /* Popover for "more" events */
+  background-color: #1A1A2E;
+  border: 1px solid #00FFFF;
+  color: #E6F1FF;
+}
+.fc .fc-popover-header {
+  background-color: #00FFFF;
+  color: #0A192F;
+}
+
+/* Selected date/slot styling */
+.fc-highlight {
+  background: rgba(0, 255, 255, 0.2) !important; /* Accent color with transparency for selection */
+}
+
+/* Admin Page Specific Styles */
+
+/* Ensure the admin page container takes up reasonable space and is centered */
+body.admin-page { /* We'll need to add class="admin-page" to admin.html body */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.admin-container {
+  width: 100%;
+  max-width: 800px; /* Max width for the content */
+  background-color: #1A1A2E; /* Dark charcoal container background */
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #00FFFF; /* Accent border */
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2); /* Neon glow */
+}
+
+.admin-container h1 {
+  color: #00FFFF; /* Accent color for the main heading */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Styling for the refresh button if it needs specific alignment or sizing */
+#refresh {
+  /* Assuming .btn and .btn-primary styles are sufficient.
+     If specific alignment needed, add here e.g. margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;
+  */
+  margin-bottom: 20px;
+}
+
+/* The #list li styling was added previously, ensure it works well.
+   Example:
+    #list li {
+      background-color: #1A1A2E;
+      padding: 10px 15px;
+      margin-bottom: 8px;
+      border-radius: 4px;
+      border: 1px solid #00FFFF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #E6F1FF;
+    }
+    #list li button {
+      margin-left: 10px;
+      // Ensure .btn .btn-primary or a new class is applied if default button styles are not enough
+    }
+*/
+
+/* Ensure buttons within list items on admin page also get primary styling if they don't have a class */
+/* This might be too broad, ideally buttons in JS should be created with classes.
+   If they are plain <button>, this will style them.
+#list li button {
+  background-color: #00FFFF;
+  color: #0A192F;
+  border: 1px solid #00FFFF;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+#list li button:hover {
+  background-color: #39FF14;
+  color: #0A192F;
+  border-color: #39FF14;
+}
+*/
+
+/* Subtle Animations and Transitions */
+
+/* Page load fade-in effect */
+body {
+  animation: fadeInPage 0.8s ease-out forwards;
+}
+
+@keyframes fadeInPage {
+  from {
+    opacity: 0;
+    transform: translateY(10px); /* Optional: slight upward movement */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhance link hover effect with a subtle transition */
+a {
+  transition: color 0.3s ease, text-shadow 0.3s ease; /* Added text-shadow transition */
+}
+
+a:hover {
+  /* color: #39FF14; /* Already defined */
+  text-shadow: 0 0 5px rgba(57, 255, 20, 0.7); /* Neon green text glow on hover */
+}
+
+/* Card hover effect for interactive cards (if any are used as links/buttons) */
+.card:hover, .list-group-item:hover {
+  /* Only apply if the card or item is interactive, might need a specific class like .card-interactive */
+  /* For now, let's assume a generic subtle lift */
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 255, 255, 0.3); /* Brighter neon shadow on hover */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Input field focus - already has box-shadow, this ensures smooth transition */
+.form-control:focus, .form-select:focus {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
