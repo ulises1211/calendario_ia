@@ -7,11 +7,14 @@ def ver_usuarios():
     cur = conn.cursor()
     cur.execute("SELECT * FROM users")
     rows = cur.fetchall()
+    col_names = [description[0] for description in cur.description]
     conn.close()
 
     print("Usuarios registrados:")
     for row in rows:
-        print(f"ID: {row[0]} | Nombre: {row[1]} | Email: {row[2]} | WhatsApp: {row[3]}")
+        for name, value in zip(col_names, row):
+            print(f"{name}: {value}", end=" | ")
+        print()  # Nueva línea por usuario
 
 if __name__ == "__main__":
     ver_usuarios()
