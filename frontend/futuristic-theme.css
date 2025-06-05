@@ -304,7 +304,7 @@ thead th {
 
 .fc-event {
   border: 1px solid #FFB6C1; /* LightPink border for events */
-  background-color: #FFF0F1; /* Very light pink event background */
+  background-color: #FFD1DC; /* Pastel Pink event background */
   color: #4A4A4A; /* Dark Gray text for event titles */
   font-weight: 500;
   border-radius: 15px; /* Rounded events */
@@ -324,10 +324,10 @@ thead th {
 }
 
 .fc .fc-timegrid-slot-lane {
-  background-color: #FFF8E1; /* Page background for slots */
+  background-color: #FFFFFF; /* Page background for slots */
 }
 .fc .fc-timegrid-slot-lane:hover {
-    background-color: #FFFDF5; /* Very subtle lighter cream */
+    background-color: #E6F7FF; /* Very subtle lighter cream */
 }
 
 .fc .fc-daygrid-day-number {
@@ -336,7 +336,7 @@ thead th {
 }
 
 .fc .fc-daygrid-day.fc-day-today {
-  background-color: rgba(255, 209, 220, 0.3); /* Transparent Pastel Pink */
+  background-color: #FFE4E1; /* Misty Rose for today */
 }
 
 .fc .fc-popover {
@@ -352,7 +352,7 @@ thead th {
 }
 
 .fc-highlight {
-  background: rgba(255, 209, 220, 0.4) !important; /* Pastel Pink with transparency */
+  background: rgba(255, 182, 193, 0.6) !important; /* Stronger Pastel Pink with transparency */
 }
 
 /* Admin Page Specific Styles */
