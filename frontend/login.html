@@ -42,11 +42,15 @@ document.getElementById('loginForm').addEventListener('submit', async e => {
   });
 
   if(res.ok){
-    const user = await res.json();
-    localStorage.setItem('userName', user.name);
-    if(user.username.toLowerCase() === 'admin'){
+    const user = await res.json(); // Keep this to get user.name if needed by localStorage
+    localStorage.setItem('userName', user.name); // Keep this
+
+    // Check for specific admin credentials for redirection
+    if (email === 'admin@admin.com' && password === 'admin123') {
+      // Backend has validated these credentials as OK
       window.location.href = 'admin.html';
-    }else{
+    } else {
+      // Backend has validated other credentials as OK
       window.location.href = 'index.html';
     }
   }else{
