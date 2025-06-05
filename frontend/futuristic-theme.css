@@ -386,3 +386,44 @@ body.admin-page {
   margin-bottom: 25px;
   /* .btn .btn-primary styles will apply */
 }
+
+/* Revive Salon Button Styling */
+.revive-salon-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1050; /* Ensure it's above most content, but below modals if necessary */
+
+  background-color: #FFB6C1; /* LightPink */
+  color: #4A4A4A; /* Dark Gray text */
+  border: 1px solid #FFD1DC; /* Pastel Pink border */
+
+  /* Assuming .btn and .btn-sm classes from Bootstrap are also applied for padding, font-size, base border-radius */
+  /* Override Bootstrap's default .btn text color if it's not #4A4A4A already by .btn-sm or other rules */
+  /* For example, .btn-primary might set a different text color. */
+  /* We want to ensure our dark gray text is used. */
+  /* However, since we are not using .btn-primary or .btn-secondary class, this should be fine. */
+  /* Just .btn and .btn-sm typically don't enforce a specific text color that would override this. */
+
+  /* Add a subtle shadow consistent with the pastel theme */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  text-decoration: none; /* Ensure no underline if it's an <a> tag */
+}
+
+.revive-salon-button:hover,
+.revive-salon-button:focus {
+  background-color: #FFD1DC; /* Pastel Pink on hover - slightly lighter/softer */
+  color: #333333; /* Slightly darker text on hover for emphasis */
+  border-color: #FFB6C1; /* LightPink border on hover */
+  text-decoration: none; /* Ensure no underline on hover */
+  box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+  /* transform: translateY(-1px); /* Optional: slight lift */
+}
+
+/* Ensure the text color is explicitly set if .btn has a default that overrides */
+.revive-salon-button.btn {
+    color: #4A4A4A;
+}
+.revive-salon-button.btn:hover {
+    color: #333333;
+}
