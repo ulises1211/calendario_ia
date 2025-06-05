@@ -1,100 +1,107 @@
-/* Import Google Font - Roboto */
+/* Import Google Font - Roboto (keeping this for now, can be changed if desired) */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-/* Global Styles */
+/* Pastel, Cream, and Pink Theme Global Styles */
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #0A192F; /* Deep space blue */
-  color: #E6F1FF; /* Off-white */
+  background-color: #FFF8E1; /* Light Cream */
+  color: #4A4A4A; /* Dark Gray */
   line-height: 1.6;
+  animation: fadeInPage 0.8s ease-out forwards; /* Keep fade-in */
+}
+
+@keyframes fadeInPage { /* Keep fade-in */
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 700; /* Bolder headings */
-  color: #E6F1FF; /* Off-white for headings too, or a very light accent */
+  font-weight: 700;
+  color: #4A4A4A; /* Dark Gray for headings */
   margin-bottom: 0.75em;
 }
 
-/* General link styling */
 a {
-  color: #00FFFF; /* Electric blue for links */
-  text-decoration: none; /* Remove default underline */
+  color: #FFD1DC; /* Pastel Pink for links */
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #39FF14; /* Neon green for hover - can adjust */
+  color: #FFB6C1; /* LightPink for hover */
   text-decoration: underline;
 }
 
-/* Ensure container backgrounds in Bootstrap don't override the body bg too much,
-   or make them slightly lighter if needed for contrast.
-   For now, let's assume we want the dark theme pervasive.
-   We might need to adjust specific container elements later. */
+/* Bootstrap Overrides & Component Styling */
 
-.bg-light {
-  background-color: #1A1A2E !important; /* Dark charcoal for elements previously light, override Bootstrap */
-  color: #E6F1FF;
+.bg-light { /* Was dark, now should be a complementary light shade or white */
+  background-color: #FFFFFF !important; /* White */
+  color: #4A4A4A;
 }
 
-.text-dark {
-  color: #E6F1FF !important; /* Ensure text that was dark is now light */
+.text-dark { /* Should now be dark text as per theme */
+  color: #4A4A4A !important;
 }
 
-.text-white {
-  color: #FFFFFF !important; /* Keep white text as white */
+.text-white { /* If used, should probably be dark now, or a very light cream if on dark pink bg */
+  color: #4A4A4A !important; /* Default to dark gray, adjust if specific components use dark pink bg */
 }
 
-/* Style for cards to give them a distinct but themed background */
 .card {
-  background-color: #1A1A2E; /* Dark charcoal, same as .bg-light for now */
-  border: 1px solid #00FFFF; /* Accent border */
-  color: #E6F1FF;
+  background-color: #FFFFFF; /* White cards */
+  border: 1px solid #FFD1DC; /* Pastel Pink border */
+  color: #4A4A4A;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Softer shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-/* Adjust text muted or lead paragraph colors */
-.text-muted {
-  color: #BFC1C2 !important; /* Metallic silver for muted text */
-}
 
-.lead {
-  color: #E6F1FF;
-  font-weight: 300;
-}
-
-/* Navbar specific adjustments for dark theme */
 .navbar {
-  background-color: #1A1A2E !important; /* Dark charcoal for navbar */
-  border-bottom: 1px solid #00FFFF; /* Accent line at the bottom */
+  background-color: #FFFFFF !important; /* White navbar */
+  border-bottom: 1px solid #FFD1DC; /* Pastel Pink bottom border */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-.navbar-brand, .nav-link, .navbar-toggler-icon {
-  color: #E6F1FF !important;
+.navbar-brand, .nav-link {
+  color: #4A4A4A !important; /* Dark gray text */
+}
+.navbar-brand:hover, .nav-link:hover {
+  color: #FFB6C1 !important; /* LightPink on hover */
 }
 
 .navbar-toggler {
-  border-color: #00FFFF;
+  border-color: #FFD1DC; /* Pastel Pink */
+}
+.navbar-toggler-icon {
+  /* Default Bootstrap icon uses background-image with embedded SVG.
+     To change color, it's more complex. Default might be fine, or use a version that inherits color.
+     For simplicity, leaving default which is usually black/dark. */
 }
 
 .navbar-nav .nav-link.active, .navbar-nav .show > .nav-link {
-  color: #00FFFF !important; /* Active link color */
+  color: #FFB6C1 !important; /* Active link color - LightPink */
 }
 
-/* Modal specific adjustments for dark theme */
 .modal-content {
-  background-color: #0A192F; /* Deep space blue for modal background */
-  color: #E6F1FF;
-  border: 1px solid #00FFFF; /* Accent border */
+  background-color: #FFFFFF; /* White modal background */
+  color: #4A4A4A;
+  border: 1px solid #FFD1DC; /* Pastel Pink border */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .modal-header {
-  border-bottom: 1px solid #2c3e50; /* Darker border for modal header */
+  border-bottom: 1px solid #FFF0F1; /* Very light pink for modal header border */
 }
 
 .modal-header .btn-close {
-  filter: invert(1) grayscale(100%) brightness(200%); /* Make close button visible on dark bg */
+  /* Default Bootstrap close button should be visible enough on white.
+     If not, filter might need adjustment, but avoid invert for light themes. */
 }
 
-/* Table styling for admin page (anticipating it might be used or needed) */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -104,364 +111,278 @@ table {
 th, td {
   padding: 0.75rem;
   vertical-align: top;
-  border-top: 1px solid #00FFFF; /* Accent color for table lines */
-  color: #E6F1FF;
+  border-top: 1px solid #FFD1DC; /* Pastel Pink for table lines */
+  color: #4A4A4A;
 }
 
 thead th {
   vertical-align: bottom;
-  border-bottom: 2px solid #00FFFF; /* Stronger line for table header */
-  color: #00FFFF; /* Accent color for table headers */
+  border-bottom: 2px solid #FFB6C1; /* Stronger LightPink line for table header */
+  color: #FFB6C1; /* LightPink for table headers */
 }
-
-/* Restyle Bootstrap Components */
 
 /* Buttons */
 .btn {
-  border-radius: 4px; /* Slightly less rounded for a sharper look */
-  padding: 0.5rem 1rem;
+  border-radius: 20px; /* Softer, more rounded buttons for pastel theme */
+  padding: 0.6rem 1.2rem;
   font-weight: 500;
   transition: all 0.3s ease;
   border: 1px solid transparent;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
 }
 
+
 .btn-primary {
-  background-color: #00FFFF; /* Electric blue accent */
-  color: #0A192F; /* Dark text for contrast */
-  border-color: #00FFFF;
+  background-color: #FFD1DC; /* Pastel Pink */
+  color: #4A4A4A; /* Dark Gray text for contrast */
+  border-color: #FFD1DC;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-  background-color: #39FF14; /* Neon green on hover/focus */
-  color: #0A192F;
-  border-color: #39FF14;
-  box-shadow: 0 0 10px #39FF14; /* Neon glow effect */
+  background-color: #FFB6C1; /* LightPink */
+  color: #4A4A4A;
+  border-color: #FFB6C1;
 }
 
 .btn-link {
-  color: #00FFFF;
+  color: #FFD1DC; /* Pastel Pink */
+  text-decoration: none;
 }
-
 .btn-link:hover {
-  color: #39FF14;
+  color: #FFB6C1; /* LightPink */
+  text-decoration: underline;
 }
 
-/* Secondary or default button style (if needed) */
 .btn-secondary {
-  background-color: #1A1A2E; /* Dark charcoal */
-  color: #E6F1FF; /* Off-white text */
-  border-color: #00FFFF; /* Accent border */
+  background-color: #FFF0F1; /* Very light pink or cream */
+  color: #4A4A4A; /* Dark Gray text */
+  border-color: #FFD1DC; /* Pastel Pink border */
 }
 
 .btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
-  background-color: #2c3e50; /* Slightly lighter dark */
-  color: #00FFFF;
-  border-color: #00FFFF;
-  box-shadow: 0 0 8px #00FFFF;
+  background-color: #FFE6EA;
+  color: #4A4A4A;
+  border-color: #FFB6C1;
 }
-
 
 /* Form Inputs */
 .form-control, .form-select {
-  background-color: #071425; /* Slightly darker than main bg */
-  color: #E6F1FF;
-  border: 1px solid #00FFFF; /* Accent border */
-  border-radius: 4px;
+  background-color: #FFFFFF; /* White background */
+  color: #4A4A4A;
+  border: 1px solid #FFD1DC; /* Pastel Pink border */
+  border-radius: 20px; /* Softer, rounded inputs */
+  padding: 0.5rem 1rem;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .form-control:focus, .form-select:focus {
-  background-color: #071425;
-  color: #E6F1FF;
-  border-color: #39FF14; /* Neon green border on focus */
-  box-shadow: 0 0 8px #39FF14; /* Neon glow effect */
-  outline: none; /* Remove default outline */
+  background-color: #FFFFFF;
+  color: #4A4A4A;
+  border-color: #FFB6C1; /* LightPink border on focus */
+  box-shadow: 0 0 0 0.2rem rgba(255, 182, 193, 0.25); /* Soft pink glow */
+  outline: none;
 }
 
 .form-control::placeholder {
-  color: #BFC1C2; /* Metallic silver for placeholder */
+  color: #AAAAAA; /* Lighter gray for placeholder */
   opacity: 0.7;
 }
 
 .form-label {
-  color: #E6F1FF;
+  color: #4A4A4A;
   margin-bottom: 0.5rem;
+  font-weight: 500;
 }
 
-/* Specific for select dropdown arrow on dark background */
 .form-select {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2300FFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23FFB6C1' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"); /* LightPink arrow */
 }
 
-/* List group styling (e.g., for admin page list) */
+/* List group styling */
 .list-group-item {
-  background-color: #1A1A2E; /* Dark charcoal */
-  border: 1px solid #00FFFF; /* Accent border */
-  color: #E6F1FF;
-  margin-bottom: 5px; /* Add some space between items */
-  border-radius: 4px;
+  background-color: #FFFFFF; /* White */
+  border: 1px solid #FFD1DC; /* Pastel Pink border */
+  color: #4A4A4A;
+  margin-bottom: 5px;
+  border-radius: 20px; /* Rounded */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.list-group-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.08);
 }
 
-/* Style for items within the list, like the text content */
+
 #list li { /* Specifically for the admin page list */
-  background-color: #1A1A2E;
-  padding: 10px;
+  background-color: #FFFFFF;
+  padding: 10px 15px;
   margin-bottom: 8px;
-  border-radius: 4px;
-  border: 1px solid #00FFFF;
+  border-radius: 20px;
+  border: 1px solid #FFD1DC;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: #4A4A4A;
 }
 
-#list li button { /* Style buttons within the list items */
+#list li button {
   margin-left: 10px;
 }
 
-/* Ensure Bootstrap's shadow utility looks good on dark */
-.shadow-sm {
-  box-shadow: 0 .125rem .25rem rgba(0, 255, 255, 0.2) !important; /* Subtle neon shadow */
-}
-.shadow {
-  box-shadow: 0 .5rem 1rem rgba(0, 255, 255, 0.25) !important;
-}
-.shadow-lg {
-  box-shadow: 0 1rem 3rem rgba(0, 255, 255, 0.3) !important;
-}
+/* Shadow utilities - make them softer */
+.shadow-sm { box-shadow: 0 .125rem .25rem rgba(0,0,0,0.05) !important; }
+.shadow { box-shadow: 0 .5rem 1rem rgba(0,0,0,0.08) !important; }
+.shadow-lg { box-shadow: 0 1rem 3rem rgba(0,0,0,0.1) !important; }
+
 
 /* FullCalendar Customization */
-
-/* General Calendar Container */
 #calendar {
-  background-color: #0A192F; /* Main dark background */
-  border-radius: 4px;
-  padding: 10px; /* Add some padding around the calendar */
+  background-color: #FFF8E1; /* Page background */
+  border-radius: 8px; /* Softer radius */
+  padding: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-/* Calendar Table Borders */
 .fc-theme-standard td, .fc-theme-standard th,
-.fc-scrollgrid { /* Border color for grid lines */
-  border-color: #2c3e50; /* A darker, less prominent border for internal lines */
+.fc-scrollgrid {
+  border-color: #FFF0F1; /* Very light pink for internal grid lines */
 }
 
-/* Calendar Header Toolbar */
 .fc .fc-toolbar {
-  background-color: #1A1A2E; /* Dark charcoal for toolbar */
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  border: 1px solid #00FFFF; /* Accent border */
+  background-color: #FFFFFF; /* White toolbar */
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #FFD1DC; /* Pastel Pink border */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .fc .fc-toolbar-title {
-  color: #E6F1FF; /* Light text color for title */
+  color: #4A4A4A; /* Dark Gray title */
   font-size: 1.5em;
 }
 
-.fc .fc-button { /* Basic styling for FC buttons */
-  background-color: #00FFFF;
-  color: #0A192F;
-  border: 1px solid #00FFFF;
+.fc .fc-button {
+  background-color: #FFD1DC; /* Pastel Pink */
+  color: #4A4A4A;
+  border: 1px solid #FFD1DC;
   text-transform: capitalize;
   box-shadow: none;
   transition: all 0.3s ease;
+  border-radius: 20px; /* Rounded buttons */
+  padding: 0.4em 0.8em;
 }
 
 .fc .fc-button:hover {
-  background-color: #39FF14;
-  color: #0A192F;
-  border-color: #39FF14;
+  background-color: #FFB6C1; /* LightPink */
+  color: #4A4A4A;
+  border-color: #FFB6C1;
 }
 
 .fc .fc-button-primary:disabled {
-  background-color: #555;
-  border-color: #555;
-  color: #aaa;
+  background-color: #E0E0E0; /* Light gray for disabled */
+  border-color: #E0E0E0;
+  color: #AAAAAA;
 }
 
-.fc .fc-button-active { /* Style for active buttons like 'today' or view switch */
-  background-color: #39FF14;
-  color: #0A192F;
-  border-color: #39FF14;
+.fc .fc-button-active {
+  background-color: #FFB6C1; /* LightPink */
+  color: #4A4A4A;
+  border-color: #FFB6C1;
 }
 
-/* Day Headers (e.g., Mon, Tue) */
-.fc .fc-col-header-cell-cushion { /* Link/text within day header */
-  color: #00FFFF; /* Accent color for day names */
+.fc .fc-col-header-cell-cushion {
+  color: #FFB6C1; /* LightPink for day names */
   text-decoration: none;
+  font-weight: 500;
 }
 
-/* Event Styling */
 .fc-event {
-  border: 1px solid #39FF14; /* Neon green border for events */
-  background-color: #1A1A2E; /* Dark charcoal for event background */
-  color: #E6F1FF; /* Light text for event titles */
+  border: 1px solid #FFB6C1; /* LightPink border for events */
+  background-color: #FFF0F1; /* Very light pink event background */
+  color: #4A4A4A; /* Dark Gray text for event titles */
   font-weight: 500;
-  border-radius: 3px;
+  border-radius: 15px; /* Rounded events */
+  padding: 3px 5px;
 }
 
 .fc-event:hover {
-  background-color: #2c3e50; /* Slightly lighter on hover */
+  background-color: #FFE6EA; /* Slightly darker light pink */
 }
 
-.fc-event .fc-event-main {
-  color: #E6F1FF;
+.fc-event .fc-event-main { color: #4A4A4A; }
+.fc-event .fc-event-time { color: #795548; /* Soft Brown for event time */ }
+
+.fc .fc-timegrid-slot-label {
+  color: #795548; /* Soft Brown for time labels */
+  border-color: #FFF0F1; /* Very light pink */
 }
 
-.fc-event .fc-event-time {
-  color: #BFC1C2; /* Metallic silver for event time */
-}
-
-/* Timegrid Styling */
-.fc .fc-timegrid-slot-label { /* Time labels on the side (e.g., 9am, 10am) */
-  color: #BFC1C2;
-  border-color: #2c3e50;
-}
-
-.fc .fc-timegrid-slot-lane { /* Background of time slots */
-  background-color: #0A192F; /* Main dark background */
+.fc .fc-timegrid-slot-lane {
+  background-color: #FFF8E1; /* Page background for slots */
 }
 .fc .fc-timegrid-slot-lane:hover {
-    background-color: #0f203a; /* Slightly lighter on hover */
+    background-color: #FFFDF5; /* Very subtle lighter cream */
 }
 
-
-/* DayGrid (Month View) */
 .fc .fc-daygrid-day-number {
-  color: #BFC1C2; /* Day numbers color */
+  color: #795548; /* Soft Brown for day numbers */
   text-decoration: none;
 }
 
-.fc .fc-daygrid-day.fc-day-today { /* Highlight for today */
-  background-color: rgba(0, 255, 255, 0.1); /* Transparent accent */
+.fc .fc-daygrid-day.fc-day-today {
+  background-color: rgba(255, 209, 220, 0.3); /* Transparent Pastel Pink */
 }
 
-.fc .fc-popover { /* Popover for "more" events */
-  background-color: #1A1A2E;
-  border: 1px solid #00FFFF;
-  color: #E6F1FF;
+.fc .fc-popover {
+  background-color: #FFFFFF;
+  border: 1px solid #FFD1DC;
+  color: #4A4A4A;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 .fc .fc-popover-header {
-  background-color: #00FFFF;
-  color: #0A192F;
+  background-color: #FFD1DC; /* Pastel Pink */
+  color: #4A4A4A;
 }
 
-/* Selected date/slot styling */
 .fc-highlight {
-  background: rgba(0, 255, 255, 0.2) !important; /* Accent color with transparency for selection */
+  background: rgba(255, 209, 220, 0.4) !important; /* Pastel Pink with transparency */
 }
 
 /* Admin Page Specific Styles */
-
-/* Ensure the admin page container takes up reasonable space and is centered */
-body.admin-page { /* We'll need to add class="admin-page" to admin.html body */
+body.admin-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
   padding: 20px;
+  background-color: #FFF0F1; /* Slightly different pastel for admin page background if desired */
 }
 
 .admin-container {
   width: 100%;
-  max-width: 800px; /* Max width for the content */
-  background-color: #1A1A2E; /* Dark charcoal container background */
-  padding: 20px;
-  border-radius: 8px;
-  border: 1px solid #00FFFF; /* Accent border */
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2); /* Neon glow */
+  max-width: 800px;
+  background-color: #FFFFFF; /* White container */
+  padding: 30px; /* More padding */
+  border-radius: 12px; /* Softer radius */
+  border: 1px solid #FFD1DC; /* Pastel Pink border */
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08); /* Softer shadow */
 }
 
 .admin-container h1 {
-  color: #00FFFF; /* Accent color for the main heading */
+  color: #FFB6C1; /* LightPink for the main heading */
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-weight: 700;
 }
 
-/* Styling for the refresh button if it needs specific alignment or sizing */
 #refresh {
-  /* Assuming .btn and .btn-primary styles are sufficient.
-     If specific alignment needed, add here e.g. margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;
-  */
-  margin-bottom: 20px;
-}
-
-/* The #list li styling was added previously, ensure it works well.
-   Example:
-    #list li {
-      background-color: #1A1A2E;
-      padding: 10px 15px;
-      margin-bottom: 8px;
-      border-radius: 4px;
-      border: 1px solid #00FFFF;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #E6F1FF;
-    }
-    #list li button {
-      margin-left: 10px;
-      // Ensure .btn .btn-primary or a new class is applied if default button styles are not enough
-    }
-*/
-
-/* Ensure buttons within list items on admin page also get primary styling if they don't have a class */
-/* This might be too broad, ideally buttons in JS should be created with classes.
-   If they are plain <button>, this will style them.
-#list li button {
-  background-color: #00FFFF;
-  color: #0A192F;
-  border: 1px solid #00FFFF;
-  padding: 0.3rem 0.7rem;
-  border-radius: 4px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-#list li button:hover {
-  background-color: #39FF14;
-  color: #0A192F;
-  border-color: #39FF14;
-}
-*/
-
-/* Subtle Animations and Transitions */
-
-/* Page load fade-in effect */
-body {
-  animation: fadeInPage 0.8s ease-out forwards;
-}
-
-@keyframes fadeInPage {
-  from {
-    opacity: 0;
-    transform: translateY(10px); /* Optional: slight upward movement */
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Enhance link hover effect with a subtle transition */
-a {
-  transition: color 0.3s ease, text-shadow 0.3s ease; /* Added text-shadow transition */
-}
-
-a:hover {
-  /* color: #39FF14; /* Already defined */
-  text-shadow: 0 0 5px rgba(57, 255, 20, 0.7); /* Neon green text glow on hover */
-}
-
-/* Card hover effect for interactive cards (if any are used as links/buttons) */
-.card:hover, .list-group-item:hover {
-  /* Only apply if the card or item is interactive, might need a specific class like .card-interactive */
-  /* For now, let's assume a generic subtle lift */
-  transform: translateY(-3px);
-  box-shadow: 0 8px 15px rgba(0, 255, 255, 0.3); /* Brighter neon shadow on hover */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Input field focus - already has box-shadow, this ensures smooth transition */
-.form-control:focus, .form-select:focus {
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 25px;
+  /* .btn .btn-primary styles will apply */
 }
